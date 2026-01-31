@@ -1,0 +1,174 @@
+.book-container {
+    perspective: 1000px;
+    cursor: pointer;
+    animation: bookAppear 0.6s ease-out backwards;
+    margin: 0 4px;
+}
+
+@keyframes bookAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.book {
+    width: var(--book-width);
+    height: var(--book-height);
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(-20deg) rotateX(5deg);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.book-container:hover .book {
+    transform: rotateY(-10deg) rotateX(2deg) translateY(-15px);
+}
+
+.book-container:hover {
+    z-index: 10;
+}
+
+/* 선택된 책 - 기본 상태 유지 (추가 transform 없음 - 렌더링 품질 보존) */
+.book-container.book-selected {
+    z-index: 200;
+    position: relative;
+}
+
+.book-face {
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+/* Front Cover */
+.book-cover {
+    width: var(--book-width);
+    height: var(--book-height);
+    transform: translateZ(calc(var(--book-depth) / 2));
+    border-radius: 0 2px 2px 0;
+    overflow: hidden;
+    box-shadow:
+        2px 2px 8px rgba(0, 0, 0, 0.3),
+        inset -2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Spine */
+.book-spine {
+    width: var(--book-depth);
+    height: var(--book-height);
+    left: 0;
+    transform: rotateY(-90deg) translateZ(0);
+    transform-origin: left center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 2px 0 0 2px;
+}
+
+.spine-title {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    max-height: calc(var(--book-height) - 20px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 10px 2px;
+}
+
+/* Pages (right edge) */
+.book-pages {
+    width: var(--book-depth);
+    height: var(--book-height);
+    left: var(--book-width);
+    transform: rotateY(90deg);
+    transform-origin: left center;
+    background: linear-gradient(90deg,
+            #f8f4eb 0%,
+            #f0ece3 20%,
+            #f5f1e8 40%,
+            #ebe7de 60%,
+            #f0ece3 80%,
+            #e8e4db 100%);
+    box-shadow: inset 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.pages-lines {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg,
+            transparent 0px,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 3px);
+}
+
+/* Top */
+.book-top {
+    width: var(--book-width);
+    height: var(--book-depth);
+    top: 0;
+    transform: rotateX(90deg) translateZ(0);
+    transform-origin: top center;
+    background: linear-gradient(180deg,
+            #f5f1e8 0%,
+            #ebe7de 100%);
+}
+
+.pages-texture {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(90deg,
+            transparent 0px,
+            transparent 1px,
+            rgba(0, 0, 0, 0.02) 1px,
+            rgba(0, 0, 0, 0.02) 2px);
+}
+
+/* Bottom */
+.book-bottom {
+    width: var(--book-width);
+    height: var(--book-depth);
+    bottom: 0;
+    transform: rotateX(-90deg) translateZ(var(--book-height));
+    transform-origin: bottom center;
+    background: linear-gradient(0deg,
+            #e5e1d8 0%,
+            #d8d4cb 100%);
+}
+
+/* Back */
+.book-back {
+    width: var(--book-width);
+    height: var(--book-height);
+    transform: translateZ(calc(var(--book-depth) / -2)) rotateY(180deg);
+    border-radius: 3px 0 0 3px;
+}
+
+/* Focus styles for accessibility */
+.book-container:focus {
+    outline: none;
+}
+
+.book-container:focus-visible .book {
+    outline: 3px solid var(--accent-primary);
+    outline-offset: 4px;
+    border-radius: 4px;
+}

@@ -1,0 +1,460 @@
+.book-detail-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1500px;
+    animation: overlayFadeIn 0.6s ease-out forwards;
+}
+
+@keyframes overlayFadeIn {
+    from {
+        background: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0px);
+    }
+
+    to {
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(8px);
+    }
+}
+
+.book-detail-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+}
+
+/* Close button */
+.close-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white;
+    transition: all var(--transition-fast);
+    z-index: 110;
+    opacity: 0;
+    animation: fadeInDelayed 0.3s ease-out 0.4s forwards;
+}
+
+@keyframes fadeInDelayed {
+    to {
+        opacity: 1;
+    }
+}
+
+.close-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.close-button svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Zoomed View - Camera approaching effect */
+.zoomed-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-style: preserve-3d;
+    animation: cameraApproach 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    cursor: pointer;
+}
+
+@keyframes cameraApproach {
+    0% {
+        opacity: 0;
+        transform: translateZ(-800px) scale(0.3);
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateZ(0) scale(1);
+    }
+}
+
+.zoomed-book {
+    position: relative;
+}
+
+.zoomed-cover {
+    max-height: 70vh;
+    max-width: 50vw;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform var(--transition-normal);
+}
+
+.zoomed-view:hover .zoomed-cover {
+    transform: scale(1.02);
+}
+
+.click-hint {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px 24px;
+    border-radius: 24px;
+    color: white;
+    font-size: 0.875rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Detail View */
+.detail-view {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+    overflow-y: auto;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Back button */
+.back-button {
+    position: sticky;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: white;
+    border-radius: 24px;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-md);
+    margin: 20px;
+    transition: all var(--transition-fast);
+    z-index: 10;
+}
+
+.back-button:hover {
+    transform: translateX(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.back-button svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Detail content layout */
+.detail-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-xl) var(--spacing-2xl);
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: var(--spacing-2xl);
+}
+
+/* Book info sidebar */
+.book-info {
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+}
+
+.detail-cover {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+}
+
+.book-meta {
+    margin-top: var(--spacing-lg);
+}
+
+.book-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: var(--spacing-sm);
+}
+
+.book-author {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.book-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--bg-secondary);
+}
+
+.detail-item .label {
+    color: var(--text-muted);
+}
+
+.detail-item .value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.book-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-lg);
+}
+
+.tag {
+    padding: 4px 12px;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Reading note */
+.reading-note {
+    padding-top: var(--spacing-md);
+}
+
+.note-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--accent-primary);
+}
+
+/* =========================================
+   네이버 스마트 에디터(SE) 컴포넌트 스타일 재현
+   (책 정보 카드 등)
+   ========================================= */
+
+/* 책 정보 카드 컨테이너 */
+.note-content .se-module-material,
+.note-content .se-material-book {
+    display: flex !important;
+    align-items: center;
+    background-color: #333333;
+    /* 다크 모드 배경 */
+    border-radius: 16px;
+    padding: 24px;
+    margin: 30px 0;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+    max-width: 600px;
+    /* 너무 넓어지지 않게 */
+}
+
+.note-content .se-module-material:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* 썸네일 영역 */
+.note-content .se-material-thumbnail,
+.note-content .se-material-poster {
+    flex-shrink: 0;
+    margin-right: 24px;
+    width: 100px;
+    /* 적절한 고정 너비 */
+    height: auto;
+}
+
+.note-content .se-material-thumbnail-resource,
+.note-content .se-material-poster-resource {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* 텍스트 정보 영역 */
+.note-content .se-material-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    /* 텍스트 넘침 방지 */
+}
+
+/* 책 제목 */
+.note-content .se-material-title {
+    display: block;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+/* 상세 정보 (저자, 출판, 발매 등) */
+.note-content .se-material-detail {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: #cccccc;
+    font-size: 0.95rem;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+/* 라벨(저자, 출판 등)은 숨김 처리 (이미지 스타일 따름) */
+.note-content .se-material-detail-title {
+    display: none;
+}
+
+/* 내용(이름, 출판사명 등) */
+.note-content .se-material-detail-description {
+    margin: 0;
+    display: inline-block;
+}
+
+/* 항목 사이 구분점 (·) 추가 */
+.note-content .se-material-detail-description:not(:last-child)::after {
+    content: " · ";
+    margin: 0 6px;
+    color: #888888;
+    font-weight: 400;
+}
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+    .note-content .se-module-material {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .note-content .se-material-thumbnail {
+        margin-right: 0;
+        margin-bottom: 16px;
+        width: 120px;
+    }
+}
+
+.note-content {
+    font-family: var(--font-primary);
+    font-size: 1.0625rem;
+    line-height: 1.9;
+    color: var(--text-primary);
+}
+
+.note-content p {
+    margin-bottom: 1.5em;
+}
+
+.note-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================
+   중복 콘텐츠 숨김 및 최적화
+   ========================================= */
+
+/* 본문 맨 처음에 나오는 이미지(se-image)는 
+   왼쪽 사이드바의 책 표지와 중복되므로 숨김 처리 */
+.note-content>.se-image:first-child {
+    display: none !important;
+}
+
+/* 첫 번째 요소가 텍스트일 때 상단 여백 제거 */
+.note-content>*:first-child {
+    margin-top: 0 !important;
+}
+
+
+/* Responsive */
+@media (max-width: 900px) {
+    .detail-content {
+        grid-template-columns: 1fr;
+        padding: 0 var(--spacing-lg) var(--spacing-xl);
+    }
+
+    .book-info {
+        position: static;
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .detail-cover {
+        width: 180px;
+    }
+}
+
+@media (max-width: 600px) {
+    .book-info {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .detail-cover {
+        width: 200px;
+        margin: 0 auto;
+    }
+
+    .zoomed-cover {
+        max-width: 85vw;
+        max-height: 60vh;
+    }
+}

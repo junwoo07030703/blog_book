@@ -1,0 +1,97 @@
+.shelf-container {
+    flex-shrink: 0;
+    width: 1200px;
+    min-width: 1200px;
+}
+
+.shelf-label {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-md);
+}
+
+.shelf {
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.shelf-surface {
+    position: relative;
+    position: relative;
+    background: linear-gradient(180deg,
+            #deb887 0%,
+            #d4a574 30%,
+            #c49a6c 70%,
+            #b8915a 100%);
+    padding: 20px 30px 35px;
+    border-radius: 2px;
+    min-height: 200px;
+
+    /* Wood grain effect */
+    background-image:
+        linear-gradient(180deg,
+            #deb887 0%,
+            #d4a574 30%,
+            #c49a6c 70%,
+            #b8915a 100%),
+        repeating-linear-gradient(90deg,
+            transparent 0px,
+            transparent 40px,
+            rgba(0, 0, 0, 0.02) 40px,
+            rgba(0, 0, 0, 0.02) 80px);
+
+    box-shadow:
+        inset 0 2px 4px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.books-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 12px;
+    min-height: 160px;
+    padding-top: 10px;
+    white-space: normal;
+}
+
+.shelf-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(180deg,
+            #c49a6c 0%,
+            #a67b52 50%,
+            #8b6545 100%);
+    border-radius: 0 0 4px 4px;
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.shelf-shadow {
+    position: absolute;
+    bottom: -20px;
+    left: 20px;
+    right: 20px;
+    height: 20px;
+    background: radial-gradient(ellipse at center,
+            rgba(0, 0, 0, 0.15) 0%,
+            transparent 70%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .shelf-surface {
+        padding: 15px 15px 30px;
+    }
+
+    .books-row {
+        justify-content: center;
+    }
+}

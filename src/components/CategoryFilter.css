@@ -1,0 +1,65 @@
+.category-filter {
+    padding: var(--spacing-lg) 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.category-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding: 0 var(--spacing-lg);
+    min-width: max-content;
+}
+
+.category-tab {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 10px 18px;
+    background: white;
+    border-radius: 24px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+    white-space: nowrap;
+}
+
+.category-tab:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.category-tab.active {
+    background: linear-gradient(135deg, #c49a6c 0%, #a67b52 100%);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.category-name {
+    font-weight: 500;
+}
+
+.category-count {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    min-width: 24px;
+    text-align: center;
+}
+
+.category-tab.active .category-count {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Hide scrollbar but keep functionality */
+.category-filter::-webkit-scrollbar {
+    display: none;
+}
+
+.category-filter {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

@@ -1,0 +1,149 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 카메라 뷰포트 */
+.camera-viewport {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+}
+
+/* 3D 씬 - 전체 컨텐츠가 움직이는 공간 */
+.scene {
+  transform-style: preserve-3d;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.scene-zoomed {
+  pointer-events: none;
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: var(--spacing-2xl);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.books-section {
+  padding: 0 var(--spacing-lg);
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.book-count {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* 줌 오버레이 */
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 50;
+  animation: overlayFade 0.5s ease-out forwards;
+  cursor: pointer;
+}
+
+@keyframes overlayFade {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  to {
+    background: rgba(0, 0, 0, 0);
+  }
+}
+
+.zoom-overlay .close-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 110;
+  box-shadow: var(--shadow-md);
+}
+
+.zoom-overlay .close-button:hover {
+  background: white;
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.zoom-overlay .close-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.zoom-hint {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px 28px;
+  border-radius: 24px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  animation: hintPulse 2s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.02);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .books-section {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .section-header {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding-left: var(--spacing-sm);
+  }
+}

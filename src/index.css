@@ -1,0 +1,256 @@
+:root {
+  /* Colors - Premium Warm Palette */
+  --bg-primary: #f8f6f3;
+  --bg-secondary: #f0ede8;
+  --bg-shelf: linear-gradient(180deg, #d4a574 0%, #c49a6c 50%, #b8915a 100%);
+  --bg-shelf-edge: linear-gradient(180deg, #a67b52 0%, #8b6545 100%);
+
+  /* Text Colors */
+  --text-primary: #2d2a26;
+  --text-secondary: #5a554d;
+  --text-muted: #8b8579;
+
+  /* Accent Colors */
+  --accent-primary: #c49a6c;
+  --accent-hover: #b8915a;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+  --shadow-book: 4px 4px 12px rgba(0, 0, 0, 0.25);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease-out;
+  --transition-normal: 0.3s ease-out;
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Typography */
+  --font-primary: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Georgia', 'Noto Serif KR', serif;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* Book Dimensions Scale */
+  --book-scale: 0.6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  min-width: 1400px;
+  overflow-x: auto;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  min-width: 1400px;
+  overflow-x: auto;
+  /* 터치 확대 방지 */
+  touch-action: pan-x pan-y;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+/* Button Reset */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Input Reset */
+input {
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+
+/* Link Reset */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bookHover {
+  0% {
+    transform: translateY(0) rotateY(-15deg);
+  }
+
+  100% {
+    transform: translateY(-12px) rotateY(-10deg);
+  }
+}
+
+/* Utility Classes */
+.fade-in {
+  animation: fadeIn var(--transition-normal) forwards;
+}
+
+.slide-up {
+  animation: slideUp var(--transition-slow) forwards;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  animation: fadeIn var(--transition-fast) forwards;
+}
+
+/* Container */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* Visually Hidden (for accessibility) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Book Content Styles (for rendering contentHtml) */
+.book-content {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.book-content p {
+  margin-bottom: 1em;
+}
+
+.book-content b,
+.book-content strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.book-content .se-text-paragraph {
+  margin-bottom: 0.5em;
+}
+
+.book-content .se-component-content,
+.book-content .se-section,
+.book-content .se-module,
+.book-content .se-material,
+.book-content script {
+  display: none;
+}
+
+.book-content hr {
+  border: none;
+  height: 1px;
+  background: var(--bg-secondary);
+  margin: var(--spacing-lg) 0;
+}
