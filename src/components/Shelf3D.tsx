@@ -13,7 +13,7 @@ export function Shelf3D({ position = [0, 0, 0] }: Shelf3DProps) {
         metalness: 0.1,
     });
 
-    const shelfWidth = 8;
+    const shelfWidth = 16;
     const shelfDepth = 1.2;
     const shelfHeight = 0.15;
 

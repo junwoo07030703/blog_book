@@ -36,8 +36,8 @@ function App() {
     setSelectedBook(null);
   }, []);
 
-  // 책을 선반별로 그룹화 (한 선반당 5권)
-  const booksPerShelf = 5;
+  // 책을 선반별로 그룹화 (한 선반당 10권)
+  const booksPerShelf = 10;
   const shelves: Book[][] = [];
   for (let i = 0; i < books.length; i += booksPerShelf) {
     shelves.push(books.slice(i, i + booksPerShelf));
@@ -121,7 +121,7 @@ function App() {
         <Canvas
           shadows
           frameloop="always"
-          camera={{ position: [-4, 1, 12], fov: 45 }}
+          camera={{ position: [-3, 1, 12], fov: 45 }}
           gl={{ antialias: true, alpha: true }}
           style={{ background: 'linear-gradient(180deg, #f5f0e8 0%, #e8e0d5 100%)' }}
         >
@@ -143,7 +143,7 @@ function App() {
             {/* 3D 안내판 (평행하게 배치, 높이 조정) - 상세보기 중에는 숨김 */}
             {!showDetail && (
               <GuidePanel3D
-                position={[-8, 1.5, 0]}
+                position={[-11, 1.5, 0]}
                 rotation={[0, 0, 0]}
               />
             )}
@@ -179,7 +179,7 @@ function App() {
             <OrbitControls
               enablePan={true}
               enableZoom={true}
-              target={[-4, 1, 0]} // 회전 중심도 이동
+              target={[-3, 1, 0]} // 회전 중심도 이동
               minDistance={0.1}
               maxDistance={30}
               minPolarAngle={0}
