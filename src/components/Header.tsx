@@ -4,9 +4,10 @@ interface HeaderProps {
     searchQuery: string;
     onSearchChange: (query: string) => void;
     totalBooks: number;
+    onAddClick: () => void;
 }
 
-export function Header({ searchQuery, onSearchChange, totalBooks }: HeaderProps) {
+export function Header({ searchQuery, onSearchChange, totalBooks, onAddClick }: HeaderProps) {
     return (
         <header className="header">
             <div className="header-content">
@@ -42,6 +43,30 @@ export function Header({ searchQuery, onSearchChange, totalBooks }: HeaderProps)
                             </button>
                         )}
                     </div>
+
+                    <button
+                        className="add-book-button"
+                        onClick={onAddClick}
+                        style={{
+                            marginTop: '12px',
+                            padding: '8px 16px',
+                            backgroundColor: 'var(--accent-primary)',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '20px',
+                            cursor: 'pointer',
+                            fontSize: '0.9rem',
+                            fontWeight: '500',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            alignSelf: 'flex-end',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            transition: 'all 0.2s ease'
+                        }}
+                    >
+                        <span style={{ fontSize: '1.2em' }}>+</span> 독서감상문 추가하기
+                    </button>
                 </div>
             </div>
         </header>

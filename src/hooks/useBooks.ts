@@ -9,11 +9,13 @@ export function useBooks() {
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
   const [sortOption, setSortOption] = useState<SortOption>('newest');
 
+  const [allBooks, setAllBooks] = useState<Book[]>(books);
+
   // Get unique categories
   const categories = useMemo(() => {
     const cats = new Set<string>();
     cats.add('전체');
-    books.forEach(book => {
+    allBooks.forEach(book => {
       if (book.category) {
         cats.add(book.category);
       }
@@ -41,7 +43,7 @@ export function useBooks() {
 
   // Filter and sort books
   const filteredBooks = useMemo(() => {
-    let result = [...books];
+    let result = [...allBooks];
 
     // Filter by search query
     if (searchQuery.trim()) {
@@ -71,22 +73,26 @@ export function useBooks() {
     });
 
     return result;
-  }, [searchQuery, selectedCategory, sortOption, parseDate]);
+  }, [searchQuery, selectedCategory, sortOption, parseDate, allBooks]);
 
   // Category counts
   const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { '전체': books.length };
-    books.forEach(book => {
+    const counts: Record<string, number> = { '전체': allBooks.length };
+    allBooks.forEach(book => {
       if (book.category) {
         counts[book.category] = (counts[book.category] || 0) + 1;
       }
     });
     return counts;
+  }, [allBooks]);
+
+  const addBook = useCallback((newBook: Book) => {
+    setAllBooks(prev => [newBook, ...prev]);
   }, []);
 
   return {
     books: filteredBooks,
-    allBooks: books,
+    allBooks,
     searchQuery,
     setSearchQuery,
     selectedCategory,
@@ -95,7 +101,8 @@ export function useBooks() {
     setSortOption,
     categories,
     categoryCounts,
-    totalBooks: books.length,
+    totalBooks: allBooks.length,
+    addBook,
   };
 }
 

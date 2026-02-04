@@ -7,6 +7,7 @@ import { BookDetail } from './components/BookDetail';
 import { GuidePanel3D } from './components/GuidePanel3D';
 import { Shelf3D } from './components/Shelf3D';
 import { Book3DModel } from './components/Book3DModel';
+import { AddBookModal } from './components/AddBookModal';
 import { useBooks } from './hooks/useBooks';
 import type { Book } from './hooks/useBooks';
 import './App.css';
@@ -21,10 +22,12 @@ function App() {
     categories,
     categoryCounts,
     totalBooks,
+    addBook,
   } = useBooks();
 
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [showDetail, setShowDetail] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
 
   const handleBookClick = useCallback((book: Book) => {
     setSelectedBook(book);
@@ -106,6 +109,7 @@ function App() {
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         totalBooks={totalBooks}
+        onAddClick={() => setShowAddModal(true)}
       />
 
       {/* Category Filter */}
@@ -192,6 +196,15 @@ function App() {
       {/* Book Detail Modal */}
       {showDetail && selectedBook && (
         <BookDetail book={selectedBook} onClose={handleCloseDetail} />
+      )}
+
+      {/* Add Book Modal */}
+      {showAddModal && (
+        <AddBookModal
+          onClose={() => setShowAddModal(false)}
+          onAdd={addBook}
+          categories={categories}
+        />
       )}
     </div>
   );
